@@ -18,9 +18,10 @@ class APIError(Exception):
 
 def print_data(country_data: dict):
     """Displays country data from a dict."""
+    currency_data = list(country_data[0]["currencies"].values())
     print(f'Country: {country_data[0]["name"]["common"]}')
     print(f'Capital: {country_data[0]["capital"][0]}')
-    print(f'Currency: {country_data[0]["currencies"]}')
+    print(f"Currency: {currency_data[0]['name']}")
 
 
 def fetch_data(country_name: str) -> dict:
