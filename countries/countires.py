@@ -1,11 +1,5 @@
 import requests
 
-"""
-response = requests.get("https://restcountries.com/v3.1/name/germany")
-json = response.json()
-print(json[0]["name"]["nativeName"]["deu"]["official"])
-"""
-
 
 class APIError(Exception):
     """Describes an error triggered by a failing API call."""
