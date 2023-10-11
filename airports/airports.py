@@ -6,7 +6,16 @@ from rich.console import Console
 # Instead of using print(), you should use the Console from Rich instead.
 console = Console()
 
-f = open("airports.json")
+
+def get_search() -> str:
+    return Prompt.ask("Search for an an airport")
+
+
+def load_airport_JSON() -> list:
+    """Load airport data from airports.json"""
+    f = open("airports.json")
+    airport_data = json.load(f)
+    return airport_data
 
 
 def load_weather_for_location(lat: str, lng: str) -> dict:
@@ -30,12 +39,6 @@ def get_flights_from_iata(iata: str) -> list:
     return []
 
 
-def load_airport_JSON() -> list:
-    """Load airport data from airports.json"""
-
-    return []
-
-
 def find_airports_from_name(name: str, airport_data: list) -> list:
     """
     Find an airport from the airportData given a name
@@ -52,10 +55,6 @@ def find_airport_from_iata(iata: str, airport_data: list) -> dict:
     """
 
     return {}
-
-
-def get_search() -> str:
-    return Prompt.ask("Search for an an airport")
 
 
 if __name__ == "__main__":
