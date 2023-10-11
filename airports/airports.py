@@ -18,6 +18,28 @@ def load_airport_JSON() -> list:
     return airport_data
 
 
+def find_airports_from_name(name: str, airport_data: list) -> list:
+    """
+    Find an airport from the airportData given a name
+    Could return one or more airport objects
+    """
+    airportResults = [
+        airport
+        for airport in airport_data
+        if name.lower() in str(airport["name"]).lower()
+    ]
+    if len(airportResults) == 0:
+        return "No airports match your search"
+    elif len(airportResults) == 1:
+        return airportResults
+    else:
+        possibleChoices = [airport for airport in airportResults]
+        airportChoice = Prompt.ask(
+            "Multiple airports found, please choose one: ", choices=possibleChoices
+        )
+        return airportChoice
+
+
 def load_weather_for_location(lat: str, lng: str) -> dict:
     """Given a location, load the current weather for that location"""
 
@@ -35,15 +57,6 @@ def render_flights(flights: list) -> None:
 
 def get_flights_from_iata(iata: str) -> list:
     """Given an IATA get the flights that are departing from that airport from Airlabs"""
-
-    return []
-
-
-def find_airports_from_name(name: str, airport_data: list) -> list:
-    """
-    Find an airport from the airportData given a name
-    Could return one or more airport objects
-    """
 
     return []
 
