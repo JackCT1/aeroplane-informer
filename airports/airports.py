@@ -55,6 +55,9 @@ def find_airport_from_iata(iata: str, airport_data: list) -> dict:
 
 def get_flights_from_iata(iata: str, airport_data: list) -> list:
     """Given an IATA get the flights that are departing from that airport from Airlabs"""
+    response = requests.get(
+        f"https://airlabs.co/api/v9/schedules?dep_iata={iata}&api_key={AIRLBAS_KEY}"
+    )
     return []
 
 
