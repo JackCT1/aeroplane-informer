@@ -40,6 +40,12 @@ def find_airports_from_name(name: str, airport_data: list) -> list:
         return airportChoice
 
 
+def get_flights_from_iata(iata: str, airport_data: list) -> list:
+    """Given an IATA get the flights that are departing from that airport from Airlabs"""
+    airport = [airport for airport in airport_data if str(iata) in str(airport["iata"])]
+    return airport
+
+
 def load_weather_for_location(lat: str, lng: str) -> dict:
     """Given a location, load the current weather for that location"""
 
@@ -53,12 +59,6 @@ def render_flights(flights: list) -> None:
     features of the library"""
 
     console.print(flights)
-
-
-def get_flights_from_iata(iata: str, airport_data: list) -> list:
-    """Given an IATA get the flights that are departing from that airport from Airlabs"""
-    airport = [airport for airport in airport_data if str(iata) in str(airport["iata"])]
-    return airport
 
 
 def find_airport_from_iata(iata: str, airport_data: list) -> dict:
