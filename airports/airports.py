@@ -70,7 +70,7 @@ def find_airport_from_iata(iata: str, airport_data: list) -> dict:
     return {}
 
 
-if __name__ == "__main__":
+def main():
     console.print(" ")
     console.print("✈️ ✈️ ✈️ ✈️ ✈️ ✈️ ✈️ ✈️")
     console.print("Welcome to the Airports Informer Tool")
@@ -78,4 +78,10 @@ if __name__ == "__main__":
     console.print(" ")
 
     airport_data = load_airport_JSON()
-    airport_search = get_search()
+    while 1:
+        airport_search = get_search()
+        find_airports_from_name(airport_search, airport_data)
+
+
+if __name__ == "__main__":
+    main()
