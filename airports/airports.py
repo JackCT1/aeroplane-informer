@@ -44,6 +44,15 @@ def find_airports_from_name(name: str, airport_data: list) -> list:
         return airportChoice
 
 
+def find_airport_from_iata(iata: str, airport_data: list) -> dict:
+    """
+    Find an airport from the airport_data given a name
+    Should return exactly one airport object
+    """
+    airport = [airport for airport in airport_data if str(iata) in str(airport["iata"])]
+    return airport
+
+
 def get_flights_from_iata(iata: str, airport_data: list) -> list:
     """Given an IATA get the flights that are departing from that airport from Airlabs"""
     return []
@@ -62,15 +71,6 @@ def render_flights(flights: list) -> None:
     features of the library"""
 
     console.print(flights)
-
-
-def find_airport_from_iata(iata: str, airport_data: list) -> dict:
-    """
-    Find an airport from the airport_data given a name
-    Should return exactly one airport object
-    """
-    airport = [airport for airport in airport_data if str(iata) in str(airport["iata"])]
-    return airport
 
 
 def main():
