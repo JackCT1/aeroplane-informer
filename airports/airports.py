@@ -7,6 +7,8 @@ from rich.console import Console
 
 # Instead of using print(), you should use the Console from Rich instead.
 console = Console()
+load_dotenv()
+AIRLBAS_KEY = os.getenv("AIRLABS_KEY")
 
 
 def get_search() -> str:
@@ -44,8 +46,7 @@ def find_airports_from_name(name: str, airport_data: list) -> list:
 
 def get_flights_from_iata(iata: str, airport_data: list) -> list:
     """Given an IATA get the flights that are departing from that airport from Airlabs"""
-    airport = [airport for airport in airport_data if str(iata) in str(airport["iata"])]
-    return airport
+    return []
 
 
 def load_weather_for_location(lat: str, lng: str) -> dict:
@@ -68,8 +69,8 @@ def find_airport_from_iata(iata: str, airport_data: list) -> dict:
     Find an airport from the airport_data given a name
     Should return exactly one airport object
     """
-
-    return {}
+    airport = [airport for airport in airport_data if str(iata) in str(airport["iata"])]
+    return airport
 
 
 def main():
