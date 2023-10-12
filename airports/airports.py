@@ -55,10 +55,10 @@ def render_flights(flights: list) -> None:
     console.print(flights)
 
 
-def get_flights_from_iata(iata: str) -> list:
+def get_flights_from_iata(iata: str, airport_data: list) -> list:
     """Given an IATA get the flights that are departing from that airport from Airlabs"""
-
-    return []
+    airport = [airport for airport in airport_data if str(iata) in str(airport["iata"])]
+    return airport
 
 
 def find_airport_from_iata(iata: str, airport_data: list) -> dict:
