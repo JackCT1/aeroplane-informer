@@ -1,4 +1,6 @@
 import json
+import os
+from dotenv import load_dotenv
 import requests
 from rich.prompt import Prompt
 from rich.console import Console
