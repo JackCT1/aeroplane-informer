@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import requests
 from rich.prompt import Prompt
 from rich.console import Console
+from rich.table import Table
 
 # Instead of using print(), you should use the Console from Rich instead.
 console = Console()
@@ -87,6 +88,12 @@ def render_flights(flights: list) -> None:
 
     Consider using Panels, Grids, Tables or any of the more advanced
     features of the library"""
+    table = Table(title="Flights")
+    table.add_column("Flight Number", justify="center")
+    table.add_column("Destination", justify="center")
+    table.add_column("Departure Time", justify="center")
+    table.add_column("Arrival Time", justify="center")
+    table.add_column("Delayed?", justify="center")
 
     console.print(flights)
 
