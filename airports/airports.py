@@ -58,9 +58,21 @@ def get_flights_from_iata(iata: str, airport_data: list) -> list:
     response = requests.get(
         f"https://airlabs.co/api/v9/schedules?dep_iata={iata}&api_key={AIRLBAS_KEY}"
     )
-    departing_flights = response.json()["response"]
+    flight_info = response.json()["response"]
     destination_airport = find_airport_from_iata(iata, airport_data)
-    return []
+    departing_flights = []
+    for flight in flight_info:
+        departing_flights.append(
+            {
+                "flight_iata": flight["flight_iata"],
+                "arr_iata": flight["arr_iata"],
+                "arr_airport": destination_airport,
+                "dep_time_utc": flight["dep_time_utc"],
+                "delayed": flight["delayed"],
+                "dep_iata": flight["dep_iata"],
+            }
+        )
+    return departing_flights
 
 
 def load_weather_for_location(lat: str, lng: str) -> dict:
