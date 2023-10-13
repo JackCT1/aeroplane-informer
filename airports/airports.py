@@ -118,7 +118,9 @@ def main():
     airport_data = load_airport_JSON()
     while 1:
         airport_search = get_search()
-        find_airports_from_name(airport_search, airport_data)
+        airport_iata = find_airports_from_name(airport_search, airport_data)["iata"]
+        flights = get_flights_from_iata(airport_iata, airport_data)
+        render_flights(flights)
 
 
 if __name__ == "__main__":
