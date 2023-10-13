@@ -68,6 +68,7 @@ def get_flights_from_iata(iata: str, airport_data: list) -> list:
                 "arr_iata": flight["arr_iata"],
                 "arr_airport": destination_airport,
                 "dep_time_utc": flight["dep_time_utc"],
+                "arr_time_utc": flight["arr_time_utc"],
                 "delayed": flight["delayed"],
                 "dep_iata": flight["dep_iata"],
             }
