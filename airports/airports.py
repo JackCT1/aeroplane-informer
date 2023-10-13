@@ -105,7 +105,7 @@ def render_flights(flights: list) -> None:
             flight["delayed"],
         )
 
-    console.print(flights)
+    console.print(table)
 
 
 def main():
