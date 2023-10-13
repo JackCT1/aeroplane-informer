@@ -71,7 +71,6 @@ def get_flights_from_iata(iata: str, airport_data: list) -> list:
                 "dep_time_utc": flight["dep_time_utc"],
                 "arr_time_utc": flight["arr_time_utc"],
                 "delayed": flight["delayed"],
-                "dep_iata": flight["dep_iata"],
             }
         )
     return departing_flights
@@ -90,10 +89,21 @@ def render_flights(flights: list) -> None:
     features of the library"""
     table = Table(title="Flights")
     table.add_column("Flight Number", justify="center")
-    table.add_column("Destination", justify="center")
+    table.add_column("Destination Iata", justify="center")
+    table.add_column("Destination Airport", justify="center")
     table.add_column("Departure Time", justify="center")
     table.add_column("Arrival Time", justify="center")
     table.add_column("Delayed?", justify="center")
+
+    for flight in flights:
+        table.add_row(
+            flight["flight_iata"],
+            flight["arr_iata"],
+            flight["arr_airport"],
+            flight["dep_time_utc"],
+            flight["arr_time_utc"],
+            flight["delayed"],
+        )
 
     console.print(flights)
 
