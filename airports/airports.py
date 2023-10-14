@@ -50,8 +50,10 @@ def find_airport_from_iata(iata: str, airport_data: list) -> dict:
     Find an airport from the airport_data given a name
     Should return exactly one airport object
     """
-    airport = [airport for airport in airport_data if str(iata) in str(airport["iata"])]
-    return airport
+    for airport in airport_data:
+        if str(iata) in str(airport["iata"]):
+            print(airport["name"])
+            return airport["name"]
 
 
 def get_flights_from_iata(iata: str, airport_data: list) -> list:
@@ -63,11 +65,12 @@ def get_flights_from_iata(iata: str, airport_data: list) -> list:
     # destination_airport = find_airport_from_iata(iata, airport_data)
     departing_flights = []
     for flight in flight_info:
+        destination_airport = find_airport_from_iata(flight["arr_iata"], airport_data)
         departing_flights.append(
             {
                 "flight_iata": flight["flight_iata"],
                 "arr_iata": flight["arr_iata"],
-                # "arr_airport": destination_airport,
+                "arr_airport": destination_airport,
                 "dep_time_utc": flight["dep_time_utc"],
                 "arr_time_utc": flight["arr_time_utc"],
                 "delayed": str(flight["delayed"]),
@@ -91,7 +94,7 @@ def render_flights(flights: list) -> None:
     table = Table(title="Flights")
     table.add_column("Flight Number", justify="center")
     table.add_column("Destination Iata", justify="center")
-    # table.add_column("Destination Airport", justify="center")
+    table.add_column("Destination Airport", justify="center")
     table.add_column("Departure Time", justify="center")
     table.add_column("Arrival Time", justify="center")
     table.add_column("Delayed?", justify="center")
@@ -100,7 +103,7 @@ def render_flights(flights: list) -> None:
         table.add_row(
             flight["flight_iata"],
             flight["arr_iata"],
-            # flight["arr_airport"],
+            flight["arr_airport"],
             flight["dep_time_utc"],
             flight["arr_time_utc"],
             flight["delayed"],
