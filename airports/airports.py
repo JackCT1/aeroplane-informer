@@ -52,7 +52,6 @@ def find_airport_from_iata(iata: str, airport_data: list) -> dict:
     """
     for airport in airport_data:
         if str(iata) in str(airport["iata"]):
-            print(airport["name"])
             return airport["name"]
 
 
@@ -69,10 +68,9 @@ def get_flights_from_iata(iata: str, airport_data: list) -> list:
         departing_flights.append(
             {
                 "flight_iata": flight["flight_iata"],
-                "arr_iata": flight["arr_iata"],
-                "arr_airport": destination_airport,
                 "dep_time_utc": flight["dep_time_utc"],
-                "arr_time_utc": flight["arr_time_utc"],
+                # "arr_time_utc": flight["arr_time_utc"],
+                "arr_airport": destination_airport,
                 "delayed": str(flight["delayed"]),
             }
         )
@@ -92,20 +90,18 @@ def render_flights(flights: list) -> None:
     Consider using Panels, Grids, Tables or any of the more advanced
     features of the library"""
     table = Table(title="Flights")
-    table.add_column("Flight Number", justify="center")
-    table.add_column("Destination Iata", justify="center")
-    table.add_column("Destination Airport", justify="center")
-    table.add_column("Departure Time", justify="center")
-    table.add_column("Arrival Time", justify="center")
-    table.add_column("Delayed?", justify="center")
+    table.add_column("Flight Number", justify="center", style="blue")
+    table.add_column("Departure Time", justify="center", style="blue")
+    # table.add_column("Arrival Time", justify="center")
+    table.add_column("Destination", justify="center", style="purple")
+    table.add_column("Delayed?", justify="center", style="green")
 
     for flight in flights:
         table.add_row(
             flight["flight_iata"],
-            flight["arr_iata"],
-            flight["arr_airport"],
             flight["dep_time_utc"],
-            flight["arr_time_utc"],
+            # flight["arr_time_utc"],
+            flight["arr_airport"],
             flight["delayed"],
         )
 
