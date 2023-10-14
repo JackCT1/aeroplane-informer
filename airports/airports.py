@@ -65,13 +65,16 @@ def get_flights_from_iata(iata: str, airport_data: list) -> list:
     departing_flights = []
     for flight in flight_info:
         destination_airport = find_airport_from_iata(flight["arr_iata"], airport_data)
+        delayed_status = f"{flight['delayed']} minutes"
+        if flight["delayed"] == None:
+            delayed_status = "No"
         departing_flights.append(
             {
                 "flight_iata": flight["flight_iata"],
                 "dep_time_utc": flight["dep_time_utc"],
                 # "arr_time_utc": flight["arr_time_utc"],
                 "arr_airport": destination_airport,
-                "delayed": str(flight["delayed"]),
+                "delayed": delayed_status,
             }
         )
     # print(departing_flights[0])
