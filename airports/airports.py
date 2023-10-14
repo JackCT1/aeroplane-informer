@@ -60,19 +60,20 @@ def get_flights_from_iata(iata: str, airport_data: list) -> list:
         f"https://airlabs.co/api/v9/schedules?dep_iata={iata}&api_key={AIRLBAS_KEY}"
     )
     flight_info = response.json()["response"]
-    destination_airport = find_airport_from_iata(iata, airport_data)
+    # destination_airport = find_airport_from_iata(iata, airport_data)
     departing_flights = []
     for flight in flight_info:
         departing_flights.append(
             {
                 "flight_iata": flight["flight_iata"],
                 "arr_iata": flight["arr_iata"],
-                "arr_airport": destination_airport,
+                # "arr_airport": destination_airport,
                 "dep_time_utc": flight["dep_time_utc"],
                 "arr_time_utc": flight["arr_time_utc"],
-                "delayed": flight["delayed"],
+                "delayed": str(flight["delayed"]),
             }
         )
+    # print(departing_flights[0])
     return departing_flights
 
 
@@ -90,7 +91,7 @@ def render_flights(flights: list) -> None:
     table = Table(title="Flights")
     table.add_column("Flight Number", justify="center")
     table.add_column("Destination Iata", justify="center")
-    table.add_column("Destination Airport", justify="center")
+    # table.add_column("Destination Airport", justify="center")
     table.add_column("Departure Time", justify="center")
     table.add_column("Arrival Time", justify="center")
     table.add_column("Delayed?", justify="center")
@@ -99,7 +100,7 @@ def render_flights(flights: list) -> None:
         table.add_row(
             flight["flight_iata"],
             flight["arr_iata"],
-            flight["arr_airport"],
+            # flight["arr_airport"],
             flight["dep_time_utc"],
             flight["arr_time_utc"],
             flight["delayed"],
@@ -118,7 +119,7 @@ def main():
     airport_data = load_airport_JSON()
     while 1:
         airport_search = get_search()
-        airport_iata = find_airports_from_name(airport_search, airport_data)["iata"]
+        airport_iata = find_airports_from_name(airport_search, airport_data)[0]["iata"]
         flights = get_flights_from_iata(airport_iata, airport_data)
         render_flights(flights)
 
