@@ -61,7 +61,6 @@ def get_flights_from_iata(iata: str, airport_data: list) -> list:
         f"https://airlabs.co/api/v9/schedules?dep_iata={iata}&api_key={AIRLBAS_KEY}"
     )
     flight_info = response.json()["response"]
-    # destination_airport = find_airport_from_iata(iata, airport_data)
     departing_flights = []
     for flight in flight_info:
         destination_airport = find_airport_from_iata(flight["arr_iata"], airport_data)
@@ -77,7 +76,6 @@ def get_flights_from_iata(iata: str, airport_data: list) -> list:
                 "delayed": delayed_status,
             }
         )
-    # print(departing_flights[0])
     return departing_flights
 
 
