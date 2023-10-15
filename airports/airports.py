@@ -38,11 +38,16 @@ def find_airports_from_name(name: str, airport_data: list) -> list:
     elif len(airportResults) == 1:
         return airportResults
     else:
-        possibleChoices = [airport for airport in airportResults]
+        possibleChoices = [airport["name"] for airport in airportResults]
         airportChoice = Prompt.ask(
             "Multiple airports found, please choose one: ", choices=possibleChoices
         )
-        return airportChoice
+        airport_result = [
+            airport
+            for airport in airportResults
+            if airportChoice.lower() in str(airport["name"]).lower()
+        ]
+        return airport_result
 
 
 def find_airport_from_iata(iata: str, airport_data: list) -> dict:
