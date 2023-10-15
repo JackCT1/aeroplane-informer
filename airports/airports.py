@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 from dotenv import load_dotenv
 import requests
 from rich.prompt import Prompt
@@ -7,7 +8,7 @@ from rich.console import Console
 from rich.table import Table
 
 # Instead of using print(), you should use the Console from Rich instead.
-console = Console()
+console = Console(record=True)
 load_dotenv()
 AIRLBAS_KEY = os.getenv("AIRLABS_KEY")
 
@@ -115,6 +116,7 @@ def render_flights(flights: list) -> None:
         )
 
     console.print(table)
+    console.save_html(str(datetime.now()) + ".html")
 
 
 def main():
