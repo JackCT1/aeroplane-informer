@@ -23,21 +23,23 @@ def load_airport_JSON() -> list:
     return airport_data
 
 
+def getResults(name: str, data: list):
+    return [airport for airport in data if name.lower() in str(airport["name"]).lower()]
+
+
 def find_airports_from_name(name: str, airport_data: list) -> list:
     """
     Find an airport from the airportData given a name
     Could return one or more airport objects
     """
-    airportResults = [
-        airport
-        for airport in airport_data
-        if name.lower() in str(airport["name"]).lower()
-    ]
-    if len(airportResults) == 0:
-        return "No airports match your search"
-    elif len(airportResults) == 1:
-        return airportResults
-    else:
+
+    airportResults = getResults(name, airport_data)
+
+    while len(airportResults) == 0:
+        airport_name = Prompt.ask("No airports match your search. Try again")
+        airportResults = getResults(airport_name, airport_data)
+
+    if len(airportResults) > 1:
         possibleChoices = [airport["name"] for airport in airportResults]
         airportChoice = Prompt.ask(
             "Multiple airports found, please choose one: ", choices=possibleChoices
@@ -48,6 +50,7 @@ def find_airports_from_name(name: str, airport_data: list) -> list:
             if airportChoice.lower() in str(airport["name"]).lower()
         ]
         return airport_result
+    return airportResults
 
 
 def find_airport_from_iata(iata: str, airport_data: list) -> dict:
